@@ -2,6 +2,7 @@
 import requests
 import sys
 import json
+from bet import bet
 
 def printAll():
     #Make the HTML request
@@ -33,7 +34,9 @@ def handleArgs():
         print("Usage: python3 script.py -[h|i] [id]")
         print("\t -h: displays the help menu")
         print("\t -i: displays the relevant data for the market id")
+        print("\t -a: displays the analysis for the specified market")
         quit()
+    
     #Get the data for a specific market using the same technique as in printAll()
     elif (argument == '-i'):
         market = sys.argv[2]
@@ -48,7 +51,11 @@ def handleArgs():
             print("    Best Offer Yes: " + str(i['bestBuyYesCost']))
             print("    Best Offer No: " + str(i['bestBuyNoCost']) + "\n")
             ct += 1
-        #print(json.dumps(data, indent = 4))
+    
+    elif (argument == '-a'):
+        market = sys.argv[2]
+        print(market)
+        
         
     
 
