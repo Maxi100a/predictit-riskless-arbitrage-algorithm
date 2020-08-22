@@ -4,7 +4,7 @@ Predictit Riskless Arbitrage Algorithm (PRAA)
 ## Predictit.org
 Predictit.org is a betting website that is exclusively aimed at politics.
 
-**How does it work?**
+**How does it work?** <br>
 Predictit has multiple markets on the site. Each market is comprised of at least one contract. There are two sides to any contract: yes and no. The contracts sell for anywhere between $0.01 and $0.99. If a bet is right, your bet is returned and 90% of the difference between the contract cost and $1 (or (1-bet)*.9 + bet). Additionally, you can’t bet on both sides of one contract and the maximum bet on any contract can’t exceed $850.
 
 **What is a riskless trade?** <br>
