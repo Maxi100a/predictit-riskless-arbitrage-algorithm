@@ -2,7 +2,7 @@
 import requests
 import sys
 import json
-from bet import bet
+from bet import Bet
 
 def printAll():
     #Make the HTML request
@@ -54,8 +54,19 @@ def handleArgs():
     
     elif (argument == '-a'):
         market = sys.argv[2]
-        print(market)
+        api_url = "https://www.predictit.org/api/marketdata/markets/"  + market
+        r = requests.get(api_url)
         
+        data = r.json()
+        contracts = [] 
+        for i in data['contracts']:
+            bet1 = Bet(i['name'], i["bestBuyYesCost"], i["bestBuyNoCost"])
+            contracts.append(bet1)
+            print(bet1)
+        
+        #print(json.dumps(data, indent = 4))
+        
+
         
     
 
