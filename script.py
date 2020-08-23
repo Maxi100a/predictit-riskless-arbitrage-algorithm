@@ -13,7 +13,7 @@ def printAll():
     data = r.json()
     
     #Loop through all the markets, printing out only those who's contracts length > min_threshold
-    min_threshold = 5
+    min_threshold = 3
     stringList = []
     for i in data['markets']:
         if (len(i['contracts']) >= min_threshold):
@@ -59,28 +59,69 @@ def handleArgs():
         
         data = r.json()
         contracts = [] 
+        yesList = []
+        noList = []
         for i in data['contracts']:
-            bet1 = Bet(i['name'], i["bestBuyYesCost"], i["bestBuyNoCost"])
+            yesCost = i["bestBuyYesCost"]
+            noCost = i["bestBuyNoCost"]
+            name = i['name']
+        
+            bet1 = Bet(name, yesCost, noCost)
             contracts.append(bet1)
-            print(bet1)
+            
+            if yesCost is None:
+                yesList.append(-1)
+            else:
+                yesList.append(yesCost)
+                
+            if noCost is None:
+                noList.append(-1)
+            else:
+                noList.append(noCost)
+                
+               
+        yesList = sorted(yesList)
+        noList = sorted(noList)
         
-        #print(json.dumps(data, indent = 4))
-        
+        yesProfit = []
+        noProfit = []
+        for i in yesList:            
+            if (i != -1):
+                yesProfit.append(round((1-i)*0.9, 4))
+            else:
+                yesProfit.append(-1)
+                
+        for i in noList:
+            if (i != -1): 
+                noProfit.append(round((1-i)*0.9, 4))
+            else:
+                noProfit.append(-1)
+           
 
+        #Calculating the yes profit
+        yesSum = 0;
+        for i in range (0, len(yesList) - 1):
+            yesSum += yesList[i] if yesList[i] != -1 else yesSum
+            
+        yesSum = yesProfit[len(yesProfit) - 1] - yesSum
         
-    
+        
+        #Calculating the no profit
+        noSum = 0;
+        for i in range (0, len(noProfit) - 1):
+            noSum += noProfit[i] if noProfit[i] != -1 else noSum
+            
+        noSum = noSum - noList[len(noList) - 1]
+        print("Market: " + market)
+        print("Yes profit")
+        print("\t single: " + str(yesSum) + " \t max: " + str(yesSum * (850/yesList[len(yesList) - 1])))
+        print("No profit")
+        print("\t single: " + str(noSum) + "\t max: " + str(noSum * (850/noList[len(noList) - 1])))
+        
 
 #Parse command-line arguments
 if (len(sys.argv) >= 2):
     handleArgs()
+    #requests.post("https://discordapp.com/api/webhooks/746835520289767474/fz2KLNrQrAztLE50COHs91tkpaRWLBAb8D8juPjj28fmQOa2iCvxr8MKvGH5_KZ0Qr8d", {"content": "pussy"})
 else:
     printAll()
-
-
-
-
-
-
-#Display the amount of markets
-#print(len(data['markets']))
-#print(json.dumps(data, indent = 4))
