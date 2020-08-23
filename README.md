@@ -23,14 +23,15 @@ Options
   -a ID: display the analysis for the specified market
 ```
 This was the prototype file for multiple.py. Running the file without any arguments will output all the markets that surpass the **min_threshold** variable. Adding arguments will act according to the description above, allowing the user to individually analyze markets.
+<br>
 
 ```
 py multiple.py
 ```
 This file will analyze all of the markets that surpass the **min_threshold** variable using the same technique as in individual.py. It will upload its analysis to a shared Discord server between the contributors.
-
+<br>
 --- 
 **Authors** <br>
-Maxwell Stevens
-Phillip Roth
+Maxwell Stevens <br>
+Phillip Roth <br>
 Maximiliano Aedo
