@@ -12,3 +12,9 @@ A riskless trade, the focus of this algorithm, in this case, is where no matter 
 
 **How does the algorithm work?** <br>
 The algorithm first checks all markets with 3 or more contracts. This is because a market with a single contract can not be hedged, the odds of a market with two contracts having the right prices are low, so we found that 3 is the best. Next, the algorithm takes all yes and no contract prices in the market and finds the profits from each contract. Then it uses the previously mentioned equation to see if the trade is profitable and returns that it is profitable and the lowest profit, if it isn’t profitable it returns the cumulative amount the contracts must fall to be profitable. Finally, it moves on to the next market and repeats. 
+
+
+**Authors** <br>
+Maxwell Stevens
+Phillip Roth
+Maximiliano Aedo
