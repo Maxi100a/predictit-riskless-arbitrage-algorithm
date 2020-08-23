@@ -123,6 +123,5 @@ def handleArgs():
 #Parse command-line arguments
 if (len(sys.argv) >= 2):
     handleArgs()
-    #requests.post("https://discordapp.com/api/webhooks/746835520289767474/fz2KLNrQrAztLE50COHs91tkpaRWLBAb8D8juPjj28fmQOa2iCvxr8MKvGH5_KZ0Qr8d", {"content": "pussy"})
 else:
     printAll()
