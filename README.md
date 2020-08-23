@@ -13,7 +13,23 @@ A riskless trade, the focus of this algorithm, in this case, is where no matter 
 **How does the algorithm work?** <br>
 The algorithm first checks all markets with 3 or more contracts. This is because a market with a single contract can not be hedged, the odds of a market with two contracts having the right prices are low, so we found that 3 is the best. Next, the algorithm takes all yes and no contract prices in the market and finds the profits from each contract. Then it uses the previously mentioned equation to see if the trade is profitable and returns that it is profitable and the lowest profit, if it isn’t profitable it returns the cumulative amount the contracts must fall to be profitable. Finally, it moves on to the next market and repeats. 
 
+---
+# Usage
+```
+py indvidual.py -[h|i|a] [id]
+Options
+  -h: display the help menu
+  -i ID: display the contracts for the specified market
+  -a ID: display the analysis for the specified market
+```
+This was the prototype file for multiple.py. Running the file without any arguments will output all the markets that surpass the **min_threshold** variable. Adding arguments will act according to the description above, allowing the user to individually analyze markets.
 
+```
+py multiple.py
+```
+This file will analyze all of the markets that surpass the **min_threshold** variable using the same technique as in individual.py. It will upload its analysis to a shared Discord server between the contributors.
+
+--- 
 **Authors** <br>
 Maxwell Stevens
 Phillip Roth
