@@ -7,10 +7,10 @@ class Bet:
         self.noMax = noMax
         
     def __str__(self):
-        output = "market: " + id
-        output += "\nYes profit"
+        output = "Market: " + str(self.id)
+        output += "\n\nYes profit"
         output += "\n\t single: " + str(self.yesSingle) + " \t max: " + str(self.yesMax)
-        output += "\nNo profit"
+        output += "\n\nNo profit"
         output += "\n\t single: " + str(self.noSingle) + " \t max: " + str(self.noMax)
         
         

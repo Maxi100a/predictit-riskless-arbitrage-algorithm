@@ -3,9 +3,11 @@ import requests;
 import json
 from bet import Bet
 import math
+from operator import attrgetter
+
+contracts = []
 
 def analyzeMarket(market):
-    contracts = [] 
     yesList = []
     noList = []
     bestYesList = []
@@ -14,9 +16,7 @@ def analyzeMarket(market):
         yesCost = i["bestBuyYesCost"]
         noCost = i["bestBuyNoCost"]
         name = i['name']
-        
-        contracts.append(bet1)
-            
+                    
         if yesCost is None:
             yesList.append(-1)
         else:
@@ -59,16 +59,21 @@ def analyzeMarket(market):
         noSum += noProfit[i] if noProfit[i] != -1 else noSum
             
     noSum = noSum - noList[len(noList) - 1]
+    
+    contract = Bet(market['id'], yesSum, noSum, math.floor(yesSum * (850/yesList[len(yesList) - 1])), math.floor(noSum * (850/noList[len(noList) - 1])))
+    contracts.append(contract)
+    
+
     outputString = "Market: " + str(market['id'])
     outputString += "\nYes profit"
     outputString += "\n\t single: " + str(yesSum) + " \t max: " + str(math.floor(yesSum * (850/yesList[len(yesList) - 1])))
     outputString += "\nNo profit"
     outputString += "\n\t single: " + str(noSum) + "\t max: " + str(math.floor(noSum * (850/noList[len(noList) - 1]))) + "\n\n"
-    requests.post("https://discord.com/channels/746834133778694165/746834133778694168/746901208723357826", {"content": outputString})
+    requests.post("DISCORD_WEBHOOK_HERE", {"content": outputString})
     
 def analyzeAll():
-    requests.post("WEBOOK_LINK", 
-        {"content": "---------------------------------------------------------------------------------------------------------------------"})
+    requests.post("DISCORD_WEBHOOK_HERE", 
+    {"content": "---------------------------------------------------------------------------------------------------------------------\n---------------------------------------------------------------------------------------------------------------------"})
     #Make the HTML request
     api_url = "https://www.predictit.org/api/marketdata/all"
     r = requests.get(api_url)
@@ -82,6 +87,21 @@ def analyzeAll():
     for i in data['markets']:
         if (len(i['contracts']) >= min_threshold):
             analyzeMarket(i)
-
+    
+    
+    
+    yesContracts = sorted(contracts, key=attrgetter('yesSingle'), reverse=True)
+    noContracts = sorted(contracts, key=attrgetter('noSingle'), reverse=True)
+    
+    outputString = "____________________________________________________"
+    outputString += "\nBest Yes contracts"
+    for i in range (0, 5):
+        outputString += "\n" + str(yesContracts[i])
+    outputString += "\n____________________________________________________"
+    outputString += "\nBest no contracts: "
+    for i in range (0,5):
+        outputString += "\n" + str(noContracts[i])
+    requests.post("DISCORD_WEBHOOK_HERE", {"content": outputString})
+    print(outputString)
 analyzeAll()
             
