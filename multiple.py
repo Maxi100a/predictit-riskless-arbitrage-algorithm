@@ -63,7 +63,7 @@ def analyzeMarket(market):
     outputString += "\nNo profit"
     outputString += "\n\t single: " + str(noSum) + "\t max: " + str(noSum * (850/noList[len(noList) - 1])) + "\n\n"
     
-    requests.post("https://discordapp.com/api/webhooks/746835520289767474/fz2KLNrQrAztLE50COHs91tkpaRWLBAb8D8juPjj28fmQOa2iCvxr8MKvGH5_KZ0Qr8d", {"content": outputString})
+    requests.post("WEBHOOK_LINK_HERE", {"content": outputString})
     
 def analyzeAll():
     #Make the HTML request
