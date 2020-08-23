@@ -65,9 +65,15 @@ def analyzeMarket(market):
     outputString += "\nNo profit"
     outputString += "\n\t single: " + str(noSum) + "\t max: " + str(math.floor(noSum * (850/noList[len(noList) - 1]))) + "\n\n"
     
+<<<<<<< HEAD
     requests.post("https://discord.com/channels/746834133778694165/746834133778694168/746901208723357826", {"content": outputString})
+=======
+    requests.post("WEBOOK_LINK", {"content": outputString})
+>>>>>>> cb4f2ce458be17c4c641050b87e644ad84034aa7
     
 def analyzeAll():
+    requests.post("WEBOOK_LINK", 
+        {"content": "---------------------------------------------------------------------------------------------------------------------"})
     #Make the HTML request
     api_url = "https://www.predictit.org/api/marketdata/all"
     r = requests.get(api_url)
