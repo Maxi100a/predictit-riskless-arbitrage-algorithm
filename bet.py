@@ -3,6 +3,8 @@ class Bet:
         self.id = id 
         self.yesSingle = yesSingle
         self.noSingle = noSingle
+        self.yesMax = yesMax
+        self.noMax = noMax
         
     def __str__(self):
         output = "market: " + id
