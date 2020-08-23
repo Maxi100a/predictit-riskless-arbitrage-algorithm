@@ -69,10 +69,10 @@ def analyzeMarket(market):
     outputString += "\n\t single: " + str(yesSum) + " \t max: " + str(math.floor(yesSum * (850/yesList[len(yesList) - 1])))
     outputString += "\nNo profit"
     outputString += "\n\t single: " + str(noSum) + "\t max: " + str(math.floor(noSum * (850/noList[len(noList) - 1]))) + "\n\n"
-    requests.post("DISCORD_WEBHOOK_HERE", {"content": outputString})
+    requests.post("https://discordapp.com/api/webhooks/746835520289767474/fz2KLNrQrAztLE50COHs91tkpaRWLBAb8D8juPjj28fmQOa2iCvxr8MKvGH5_KZ0Qr8d", {"content": outputString})
     
 def analyzeAll():
-    requests.post("DISCORD_WEBHOOK_HERE", 
+    requests.post("https://discordapp.com/api/webhooks/746835520289767474/fz2KLNrQrAztLE50COHs91tkpaRWLBAb8D8juPjj28fmQOa2iCvxr8MKvGH5_KZ0Qr8d", 
     {"content": "---------------------------------------------------------------------------------------------------------------------\n---------------------------------------------------------------------------------------------------------------------"})
     #Make the HTML request
     api_url = "https://www.predictit.org/api/marketdata/all"
@@ -101,7 +101,7 @@ def analyzeAll():
     outputString += "\nBest no contracts: "
     for i in range (0,5):
         outputString += "\n" + str(noContracts[i])
-    requests.post("DISCORD_WEBHOOK_HERE", {"content": outputString})
+    requests.post("https://discordapp.com/api/webhooks/746835520289767474/fz2KLNrQrAztLE50COHs91tkpaRWLBAb8D8juPjj28fmQOa2iCvxr8MKvGH5_KZ0Qr8d", {"content": outputString})
     print(outputString)
 analyzeAll()
             
