@@ -2,17 +2,19 @@
 import requests;
 import json
 from bet import Bet
+import math
 
 def analyzeMarket(market):
     contracts = [] 
     yesList = []
     noList = []
+    bestYesList = []
+    bestNoList = []
     for i in market['contracts']:
         yesCost = i["bestBuyYesCost"]
         noCost = i["bestBuyNoCost"]
         name = i['name']
         
-        bet1 = Bet(name, yesCost, noCost)
         contracts.append(bet1)
             
         if yesCost is None:
@@ -59,11 +61,11 @@ def analyzeMarket(market):
     noSum = noSum - noList[len(noList) - 1]
     outputString = "Market: " + str(market['id'])
     outputString += "\nYes profit"
-    outputString += "\n\t single: " + str(yesSum) + " \t max: " + str(yesSum * (850/yesList[len(yesList) - 1]))
+    outputString += "\n\t single: " + str(yesSum) + " \t max: " + str(math.floor(yesSum * (850/yesList[len(yesList) - 1])))
     outputString += "\nNo profit"
-    outputString += "\n\t single: " + str(noSum) + "\t max: " + str(noSum * (850/noList[len(noList) - 1])) + "\n\n"
+    outputString += "\n\t single: " + str(noSum) + "\t max: " + str(math.floor(noSum * (850/noList[len(noList) - 1]))) + "\n\n"
     
-    requests.post("WEBHOOK_LINK_HERE", {"content": outputString})
+    requests.post("https://discord.com/channels/746834133778694165/746834133778694168/746901208723357826", {"content": outputString})
     
 def analyzeAll():
     #Make the HTML request

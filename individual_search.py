@@ -3,6 +3,7 @@ import requests
 import sys
 import json
 from bet import Bet
+import math
 
 def printAll():
     #Make the HTML request
@@ -66,10 +67,7 @@ def handleArgs():
             yesCost = i["bestBuyYesCost"]
             noCost = i["bestBuyNoCost"]
             name = i['name']
-        
-            bet1 = Bet(name, yesCost, noCost)
-            contracts.append(bet1)
-            
+                        
             if yesCost is None:
                 yesList.append(-1)
             else:
@@ -115,9 +113,9 @@ def handleArgs():
         noSum = noSum - noList[len(noList) - 1]
         print("Market: " + market)
         print("Yes profit")
-        print("\t single: " + str(yesSum) + " \t max: " + str(yesSum * (850/yesList[len(yesList) - 1])))
+        print("\t single: " + str(yesSum) + " \t max: " + str(math.floor(yesSum * (850/yesList[len(yesList) - 1]))))
         print("No profit")
-        print("\t single: " + str(noSum) + "\t max: " + str(noSum * (850/noList[len(noList) - 1])))
+        print("\t single: " + str(noSum) + "\t max: " + str(math.floor(noSum * (850/noList[len(noList) - 1]))))
         
 
 #Parse command-line arguments
