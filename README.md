@@ -29,7 +29,7 @@ This was the prototype file for multiple.py. Running the file without any argume
 py multiple.py
 ```
 This file will analyze all of the markets that surpass the **min_threshold** variable using the same technique as in individual.py. It will upload its analysis to a shared Discord server between the contributors.
-<br>
+
 --- 
 **Authors** <br>
 Maxwell Stevens <br>
