@@ -38,4 +38,4 @@ This file will analyze all of the markets that surpass the **min_threshold** var
 **Authors** <br>
 Phillip Roth <br>
 Maxwell Stevens <br>
-Maximiliano Aedo
+Maximiliano Aedo Espicto
