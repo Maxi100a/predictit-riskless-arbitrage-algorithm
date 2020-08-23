@@ -63,9 +63,11 @@ def analyzeMarket(market):
     outputString += "\nNo profit"
     outputString += "\n\t single: " + str(noSum) + "\t max: " + str(noSum * (850/noList[len(noList) - 1])) + "\n\n"
     
-    requests.post("WEBHOOK_LINK_HERE", {"content": outputString})
+    requests.post("WEBOOK_LINK", {"content": outputString})
     
 def analyzeAll():
+    requests.post("WEBOOK_LINK", 
+        {"content": "---------------------------------------------------------------------------------------------------------------------"})
     #Make the HTML request
     api_url = "https://www.predictit.org/api/marketdata/all"
     r = requests.get(api_url)
