@@ -41,6 +41,7 @@ This file will execute a repeating search and analyzation using the same methodo
 
 --- 
 **Authors** <br>
+Maximiliano Aedo Espicto<br>
 Phillip Roth <br>
 Maxwell Stevens <br>
-Maximiliano Aedo Espicto
+
