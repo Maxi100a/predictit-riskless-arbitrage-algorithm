@@ -4,6 +4,8 @@ import json
 from bet import Bet
 import math
 from operator import attrgetter
+import sched
+import time
 
 contracts = []
 
@@ -51,28 +53,28 @@ def analyzeMarket(market):
         yesSum += yesList[i] if yesList[i] != -1 else yesSum
             
     yesSum = yesProfit[len(yesProfit) - 1] - yesSum
-        
-        
+      
     #Calculating the no profit
     noSum = 0;
     for i in range (0, len(noProfit) - 1):
         noSum += noProfit[i] if noProfit[i] != -1 else noSum
             
     noSum = noSum - noList[len(noList) - 1]
-    
-    contract = Bet(market['id'], yesSum, noSum, math.floor(yesSum * (850/yesList[len(yesList) - 1])), math.floor(noSum * (850/noList[len(noList) - 1])))
-    contracts.append(contract)
-    
+    #stopping incorrect display of data  
+    if(-850 != math.floor(noSum * (850/noList[len(noList) - 1]))):
+        contract = Bet(market['id'], yesSum, noSum, math.floor(yesSum * (850/yesList[len(yesList) - 1])), math.floor(noSum * (850/noList[len(noList) - 1])))
+        contracts.append(contract)
+        
 
-    outputString = "Market: " + str(market['id'])
-    outputString += "\nYes profit"
-    outputString += "\n\t single: " + str(yesSum) + " \t max: " + str(math.floor(yesSum * (850/yesList[len(yesList) - 1])))
-    outputString += "\nNo profit"
-    outputString += "\n\t single: " + str(noSum) + "\t max: " + str(math.floor(noSum * (850/noList[len(noList) - 1]))) + "\n\n"
-    requests.post("https://discordapp.com/api/webhooks/746835520289767474/fz2KLNrQrAztLE50COHs91tkpaRWLBAb8D8juPjj28fmQOa2iCvxr8MKvGH5_KZ0Qr8d", {"content": outputString})
+        outputString = "Market: " + str(market['id'])
+        outputString += "\nYes profit"
+        outputString += "\n\t single: " + str(yesSum) + " \t max: " + str(math.floor(yesSum * (850/yesList[len(yesList) - 1])))
+        outputString += "\nNo profit"
+        outputString += "\n\t single: " + str(noSum) + "\t max: " + str(math.floor(noSum * (850/noList[len(noList) - 1]))) + "\n\n"
+        requests.post("WEBHOOK_HERE", {"content": outputString})
     
 def analyzeAll():
-    requests.post("https://discordapp.com/api/webhooks/746835520289767474/fz2KLNrQrAztLE50COHs91tkpaRWLBAb8D8juPjj28fmQOa2iCvxr8MKvGH5_KZ0Qr8d", 
+    requests.post("WEBHOOK_HERE", 
     {"content": "---------------------------------------------------------------------------------------------------------------------\n---------------------------------------------------------------------------------------------------------------------"})
     #Make the HTML request
     api_url = "https://www.predictit.org/api/marketdata/all"
@@ -99,9 +101,9 @@ def analyzeAll():
         outputString += "\n" + str(yesContracts[i])
     outputString += "\n____________________________________________________"
     outputString += "\nBest no contracts: "
-    for i in range (0,5):
+    for i in range (0,8):
         outputString += "\n" + str(noContracts[i])
-    requests.post("https://discordapp.com/api/webhooks/746835520289767474/fz2KLNrQrAztLE50COHs91tkpaRWLBAb8D8juPjj28fmQOa2iCvxr8MKvGH5_KZ0Qr8d", {"content": outputString})
+    requests.post("WEBHOOK_HERE", {"content": outputString})
     print(outputString)
 analyzeAll()
             
