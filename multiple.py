@@ -71,10 +71,10 @@ def analyzeMarket(market):
         outputString += "\n\t single: " + str(yesSum) + " \t max: " + str(math.floor(yesSum * (850/yesList[len(yesList) - 1])))
         outputString += "\nNo profit"
         outputString += "\n\t single: " + str(noSum) + "\t max: " + str(math.floor(noSum * (850/noList[len(noList) - 1]))) + "\n\n"
-        requests.post("WEBHOOK_HERE", {"content": outputString})
+        requests.post("WEBHOOK_LINK", {"content": outputString})
     
 def analyzeAll():
-    requests.post("WEBHOOK_HERE", 
+    requests.post("WEBHOOK_LINK", 
     {"content": "---------------------------------------------------------------------------------------------------------------------\n---------------------------------------------------------------------------------------------------------------------"})
     #Make the HTML request
     api_url = "https://www.predictit.org/api/marketdata/all"
@@ -103,7 +103,7 @@ def analyzeAll():
     outputString += "\nBest no contracts: "
     for i in range (0,8):
         outputString += "\n" + str(noContracts[i])
-    requests.post("WEBHOOK_HERE", {"content": outputString})
+    requests.post("WEBHOOK_LINK", {"content": outputString})
     print(outputString)
 analyzeAll()
             

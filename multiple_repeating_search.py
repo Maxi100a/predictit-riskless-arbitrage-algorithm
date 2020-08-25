@@ -3,6 +3,7 @@ import requests
 import sys
 import json
 from bet import Bet
+from operator import attrgetter
 import math
 import sched
 import time
@@ -10,24 +11,35 @@ import schedule
 import time
 
 markets = []
+marketsBetList = []
 scheduler = sched.scheduler(time.time, time.sleep)
+
+
+def marketSort():
+    #Mark the variable for global use
+    global marketsBetList
+    global markets
+    
+    #sorts markets by the best no single value
+    marketsBetList = sorted(marketsBetList, key=attrgetter('noSingle'), reverse=True)
+    
+    for i in range(0, len(marketsBetList)):
+        markets[i] = marketsBetList[i].id
 
 def marketLoopLoader():
     runMarketLoop()
-    schedule.every(30).minutes.do(runMarketLoop)
+    schedule.every(1).hour.do(runMarketLoop)
     while True:
         schedule.run_pending()
-        time.sleep(1)
         
 def runMarketLoop():
-    t = time.localtime()
     t = time.localtime()
     current_time = time.strftime("%H:%M:%S", t)
     outputString = (current_time)
     
     for i in range(0, len(markets) - 1):
         market = markets[i]
-        api_url = "https://www.predictit.org/api/marketdata/markets/"  + market
+        api_url = "https://www.predictit.org/api/marketdata/markets/"  + str(market)
         r = requests.get(api_url)
         
         data = r.json()
@@ -80,8 +92,14 @@ def runMarketLoop():
         noSum = 0;
         for i in range (0, len(noProfit) - 1):
             noSum += noProfit[i] if noProfit[i] != -1 else noSum
-            
+        
+        
         noSum = noSum - noList[len(noList) - 1]
+        
+        if len(marketsBetList) != len(markets):
+            marketBet = Bet(market, -1, noSum, -1, -1)
+            marketsBetList.append(marketBet)
+        
         outputString += ("\n\nMarket: " + market)
         outputString += ("\nYes profit")
         outputString += ("\n\t single: " + str(yesSum) + " \t max: " + str(math.floor(yesSum * (850/yesList[len(yesList) - 1]))))
@@ -89,8 +107,8 @@ def runMarketLoop():
         outputString += ("\n\t single: " + str(noSum) + "\t max: " + str(math.floor(noSum * (850/noList[len(noList) - 1]))))
     outputString += ("\n____________________________________________________________________________")
     print(outputString)
-    requests.post("WEBHOOK_HERE", {"content": outputString})
-        
+    requests.post("WEBHOOK_LINK", {"content": outputString})
+    marketSort()
 def handelMarkets():
         #adds markets requested to market list
         market = ''
