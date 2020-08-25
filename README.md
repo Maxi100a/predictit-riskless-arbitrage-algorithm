@@ -34,6 +34,11 @@ py multiple.py
 ```
 This file will analyze all of the markets that surpass the **min_threshold** variable using the same technique as in individual.py. It will upload its analysis to a shared Discord server between the contributors.
 
+```
+py multiple_repeating_search.py
+```
+This file will execute a repeating search and analyzation using the same methodology as previous files for the markets inputed by user. It will then upload this list of user inputed market data to a shared discord server between the contributors. 
+
 --- 
 **Authors** <br>
 Phillip Roth <br>
